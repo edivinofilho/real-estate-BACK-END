@@ -1,30 +1,28 @@
 import { User } from "../entities";
-import { UserCreate, UserRead } from "../interfaces";
+import { UserCreate, UserRead, UserReturn, UserUpdate } from "../interfaces";
 import { userRepo } from "../repositories";
+import { userReadSchema, userReturnSchema } from "../schemas";
 
-const createUser = async (payload: UserCreate): Promise<User> => {
-  // payload.password = hashSync(payload.password, 10);
+const createUser = async (payload: UserCreate): Promise<UserReturn> => {
+
   const newUser: User = userRepo.create(payload);
   await userRepo.save(newUser);
 
-  return newUser;
+  return userReturnSchema.parse(newUser);
 }; 
 
 const readUsers = async (): Promise<UserRead> => {
-  return await userRepo.find()
+  return userReadSchema.parse(await userRepo.find({ withDeleted: true}));
 };
 
-const updateUser = async (user: any): Promise<User> => {
-  return await userRepo.save(user);
+const updateUser = async (user: User): Promise<UserReturn> => { 
+  const updatedUser: User = await userRepo.save(user);
+
+  return userReturnSchema.parse(updatedUser)
 };
 
-const deleteUser = async (user: any): Promise<void> => {
-
-  await userRepo.remove(user);
+const deleteUser = async (user: User): Promise<void> => {
+  await userRepo.softRemove(user);
 };
 
 export default { createUser, readUsers, updateUser, deleteUser };
-
-function hashSync(password: string | undefined, arg1: number): string {
-  throw new Error("Function not implemented.");
-}

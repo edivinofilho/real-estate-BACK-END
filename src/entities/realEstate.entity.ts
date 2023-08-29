@@ -1,4 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import Schedule from "./Schedules.entity";
+import { Category } from ".";
+
 
 @Entity("realEstates")
 
@@ -15,15 +18,25 @@ class RealEstate {
   @Column({type:"integer"})
   size: number;
 
-  @Column({type: "date"})
+  @OneToMany(() => Schedule, (s) => s.user)
+  schedules: Array<Schedule>;
+
+  @ManyToOne(() => Category, (c) => c.name)
+  category: Category;
+
+  @OneToOne(() => RealEstate)
+  @JoinColumn()
+  addressId: RealEstate
+  
+  // @OneToMany - schedules - DONE 
+  // @ManyToOne - categories - DONE
+  // @OneToOne - addresses - DONE
+
+  @CreateDateColumn({type: "date"})
   createdAt: string;
 
-  @Column({type: "date"})
+  @UpdateDateColumn({type: "date"})
   updatedAt: string;
-
-  // addressId FK
-
-  // categoryId FK
 }
 
 export default RealEstate;

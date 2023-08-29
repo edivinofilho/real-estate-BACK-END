@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { getRounds, hashSync } from "bcryptjs";
+import Schedule from "./Schedules.entity";
 
 @Entity("users")
 
@@ -13,19 +15,32 @@ class User {
   email: string;
 
   @Column({type: "boolean", default: false})
-  admin: string;
+  admin: boolean;
 
   @Column({type: "varchar", length: 120})
   password: string;
 
-  @Column({type: "date"})
+  @CreateDateColumn({type: "date"})
   createdAt: string;
 
-  @Column({type: "date"})
+  @UpdateDateColumn({type: "date"})
   updatedAt: string;
 
-  @Column({type: "date", nullable: true})
-  deletedAt: string;
-}
+  @DeleteDateColumn({type: "date", nullable: true})
+  deletedAt: string | null;
+
+  @OneToMany(() => Schedule, (s) => s.user)
+  schedules: Array<Schedule>;
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  hashPassword() {
+    const hasRounds: number = getRounds(this.password);
+    if(!hasRounds){
+      this.password = hashSync(this.password, 10); // Listener tem problemas com métodos asincronos
+    }
+    // des-hashear
+  }
+};
 
 export default User;

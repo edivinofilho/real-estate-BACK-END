@@ -1,4 +1,7 @@
 import { handleErrors } from "./handleErrors.middleware";
+import validateAdmin from "./validateAdmin.middleware";
 import { validateBody } from "./validateBody.middleware";
+import { validateId } from "./validateId.middleware";
+import verifyToken from "./validateToken.middleware";
 
-export { handleErrors, validateBody };
+export default { handleErrors, validateBody, validateId, verifyToken, validateAdmin };

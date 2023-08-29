@@ -1,5 +1,7 @@
-import { userCreateSchema, userUpdate } from "./user.schema";
-import { loginSchema } from "./userLogin.schema";
+import { categoriesSchema, categoriesCreateSchema } from "./category.schema";
+import { scheduleCreateSchema, scheduleSchema } from "./schedule.schema";
+import { sessionSchema } from "./session.schema";
+import { userCreateSchema, userReadSchema, userReturnSchema, userSchema, userUpdate } from "./user.schema";
 
 
-export { userCreateSchema, userUpdate, loginSchema };
+export { userSchema, userCreateSchema, userUpdate, userReturnSchema, userReadSchema, scheduleSchema, scheduleCreateSchema, categoriesSchema, categoriesCreateSchema, sessionSchema };

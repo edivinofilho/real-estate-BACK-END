@@ -1,4 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, CreateDateColumn, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import User from "./User.entity";
+import { RealEstate } from ".";
+
 
 @Entity("schedules")
 
@@ -6,15 +9,26 @@ class Schedule {
   @PrimaryGeneratedColumn("increment")
   id: number;
 
-  @Column({type: "date"})
+  @CreateDateColumn({type: "date"})
   date: string;
 
-  @Column({type: "date"})
+  @Column({type: "timestamp"})
   hour:string;
 
-  // realState FK
+  @ManyToOne(() => User, (u) => u.schedules)
+  user: User;
+  
+  @ManyToOne(() => RealEstate, (r) => r.schedules)
+  realEstate: RealEstate;
 
-  // userID FK
+  
+  @BeforeInsert()
+  setCreatedHour() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, "0");
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+    this.hour = `${hours}:${minutes}`;
+  }
 
 }
 
