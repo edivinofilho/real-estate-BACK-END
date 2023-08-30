@@ -1,6 +1,6 @@
 import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { getRounds, hashSync } from "bcryptjs";
-import Schedule from "./Schedules.entity";
+import {Schedule} from "./Schedules.entity";
 
 @Entity("users")
 
@@ -43,4 +43,4 @@ class User {
   }
 };
 
-export default User;
+export { User } ;

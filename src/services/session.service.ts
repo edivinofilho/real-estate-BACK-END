@@ -11,11 +11,11 @@ const sessionCreate = async (payload: SessionCreate): Promise<SessionReturn> => 
   const user: User | null = await userRepo.findOneBy({ email: payload.email})
 
   console.log(user)
-  if(!user) throw new AppError("Email or password incorrect.", 401);
+  if(!user) throw new AppError("Invalid credentials", 401);
 
   const samePassword: boolean = await compare(payload.password, user.password);
 
-  if(!samePassword) throw new AppError("Email or password incorrect.", 401);
+  if(!samePassword) throw new AppError("Invalid credentials", 401);
 
   const token = sign({ admin: user.admin},
     process.env.SECRET_KEY!,

@@ -1,3 +1,4 @@
 import userServices from "./user.service";
+import categoryServices from "./category.service";
 
-export default userServices;
+export { userServices, categoryServices };

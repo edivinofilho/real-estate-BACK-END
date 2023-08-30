@@ -1,10 +1,11 @@
 import { Router } from "express";
-import { sessinController } from "../controllers";
+import { sessionController } from "../controllers";
 import middleware from "../middleware";
+import { sessionSchema } from "../schemas";
 
 const sessionRouter = Router();
 
-sessionRouter.post("/",  sessinController.sessionCreate)
+sessionRouter.post("", middleware.validateBody(sessionSchema), sessionController.sessionCreate)
 
 
 export { sessionRouter };

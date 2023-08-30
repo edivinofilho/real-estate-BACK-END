@@ -1,21 +1,17 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { RealEstate } from ".";
+import { RealEstate } from "./RealEstate.entity";
 
 
 @Entity("categories")
-
 class Category {
   @PrimaryGeneratedColumn("increment")
   id: number;
 
-  @Column({type: "varchar", length: 45})
+  @Column({type: "varchar", length: 45, unique: true})
   name: string;
 
   @OneToMany(() => RealEstate, (r) => r.category)
-  categories: Array<Category>;
-
-  
-  // @OneToMany - realState
+  realEstate: Array<RealEstate>;
 }
 
-export default Category;
+export { Category };

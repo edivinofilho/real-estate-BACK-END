@@ -6,21 +6,27 @@ const userSchema = z.object({
   email: z.string().max(45).email(),
   admin: z.boolean().default(false),
   password: z.string().max(120),
-  createdAt: z.string(),
-  updatedAt: z.string(),
-  deletedAt: z.string().nullish()
+  createdAt: z.string().or(z.date()),
+  updatedAt: z.string().or(z.date()),
+  deletedAt: z.string().nullish().or(z.date()),
 });
 
-const userCreateSchema = userSchema.omit({ 
+const userCreateSchema = userSchema.omit({
   id: true,
   createdAt: true,
   updatedAt: true,
-  deletedAt: true
+  deletedAt: true,
 });
 
-const userReturnSchema = userSchema.omit({ password: true});
+const userReturnSchema = userSchema.omit({ password: true });
 const userReadSchema = userReturnSchema.array();
-const userUpdate = userCreateSchema.partial();
 
+const userUpdateSchema = userCreateSchema.omit({ admin: true }).partial();
 
-export { userSchema, userCreateSchema, userUpdate, userReturnSchema, userReadSchema }
+export {
+  userSchema,
+  userCreateSchema,
+  userUpdateSchema,
+  userReturnSchema,
+  userReadSchema,
+};

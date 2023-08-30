@@ -22,4 +22,4 @@ class Address {
   state: string;
 }
 
-export default Address;
+export { Address };

@@ -1,9 +1,9 @@
 import { z } from "zod";
-import { userCreateSchema, userReadSchema, userReturnSchema } from "../schemas";
+import { userReadSchema, userReturnSchema } from "../schemas";
 import { User } from "../entities";
 import { DeepPartial, Repository } from "typeorm";
 
-type UserCreate = z.infer<typeof userCreateSchema>;
+type UserCreate = DeepPartial<User> //z.infer<typeof userCreateSchema>;
 type UserRead = z.infer<typeof userReadSchema>;
 type UserReturn = z.infer<typeof userReturnSchema>;
 type Token = { token: string }

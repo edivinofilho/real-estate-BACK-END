@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
-import userServices from "../services";
-import { UserRead, UserReturn, UserUpdate } from "../interfaces";
+import { userServices } from "../services";
+import { UserRead, UserReturn } from "../interfaces";
 import { userRepo } from "../repositories";
+import { User } from "../entities";
 
 const userCreate = async (req: Request, res: Response): Promise<Response> => {
   const user: UserReturn = await userServices.createUser(req.body);
@@ -21,13 +22,11 @@ const userUpdate = async (req: Request, res: Response): Promise<Response> => {
   const userId = Number(req.params.id);
   const body = req.body;
 
-  const user = await userRepo.findOneBy({id: userId})
+  const user: UserReturn | null = await userRepo.findOneBy({id: userId})
 
-  const updatedUser = {...user, ...body}
+  const updatedUser: UserReturn = await userServices.updateUser(req.body, userId);
 
-  const newUser: UserReturn = await userServices.updateUser(updatedUser);
-
-  return res.status(200).json(newUser);
+  return res.status(200).json(updatedUser);
 };
 
 const userDelete = async (req: Request, res: Response): Promise<Response> => {

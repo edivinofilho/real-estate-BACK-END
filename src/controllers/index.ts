@@ -1,4 +1,4 @@
 import userController from "./user.controller";
-import sessinController from "./session.controller"
+import sessionController from "./session.controller"
 
-export { userController,sessinController };
+export { userController,sessionController };
