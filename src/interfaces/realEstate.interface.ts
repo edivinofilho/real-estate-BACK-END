@@ -1,13 +1,15 @@
 import { z } from "zod";
-import { realEstateSchema } from "../schemas/realEstate.schema";
+import { realEstateCreateSchemas, realEstateReadSchema, realEstateWithAddressCreateSchema } from "../schemas/realEstate.schema";
+import { DeepPartial, Repository } from "typeorm";
+import { RealEstate } from "../entities";
 
-type RealStateCreate = z.infer<typeof realEstateSchema>;
+type RealEstateCreate = z.infer<typeof realEstateCreateSchemas>; //DeepPartial<RealEstate>
+
+type RealEstateRead = z.infer<typeof realEstateReadSchema>;
+
+type RealEstateWithAddress = z.infer<typeof realEstateWithAddressCreateSchema>;
+
+type RealEstateRepo = Repository<RealEstate>;
 
 
-// type UserCreate = z.infer<typeof userCreateSchema>;
-// type UserRead = z.infer<typeof userReadSchema>;
-// type UserReturn = z.infer<typeof userReturnSchema>;
-
-// type UserUpdate = DeepPartial<User>;
-
-// type UserRepo = Repository<User>;
+export { RealEstateCreate, RealEstateRead, RealEstateWithAddress, RealEstateRepo }

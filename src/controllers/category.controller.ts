@@ -1,7 +1,7 @@
 import { Request, RequestHandler, Response, request } from "express";
 import { Category } from "../entities";
 import categoryService from "../services/category.service";
-import { CategoryCreate, CategoryRead } from "../interfaces";
+import { CategoryRead } from "../interfaces";
 
 const categoryCreate = async (req: Request, res: Response): Promise<Response> => {
   const category: Category | null = await categoryService.createCategory(req.body); 

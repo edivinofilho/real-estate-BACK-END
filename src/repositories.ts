@@ -1,6 +1,6 @@
 import { AppDataSource } from "./data-source";
-import { Category, Schedule, User } from "./entities";
-import { CategoryRepo, ScheduleRepo, UserRepo } from "./interfaces";
+import { Address, Category, RealEstate, Schedule, User } from "./entities";
+import { AddressRepo, CategoryRepo, RealEstateRepo, ScheduleRepo, UserRepo } from "./interfaces";
 
 const userRepo: UserRepo = AppDataSource.getRepository(User);
 
@@ -8,4 +8,8 @@ const scheduleRepo: ScheduleRepo = AppDataSource.getRepository(Schedule);
 
 const categoryRepo: CategoryRepo = AppDataSource.getRepository(Category);
 
-export { userRepo, scheduleRepo, categoryRepo };
+const realEstateRepo: RealEstateRepo = AppDataSource.getRepository(RealEstate);
+
+const addressRepo: AddressRepo = AppDataSource.getRepository(Address)
+
+export { userRepo, scheduleRepo, categoryRepo, realEstateRepo, addressRepo };

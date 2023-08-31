@@ -8,3 +8,9 @@ const addressSchema = z.object({
   city: z.string().max(20),
   state: z.string().max(20)
 });
+
+const addressCreateSchema = addressSchema.omit({ id: true });
+
+const addressReadSchema = z.array(addressSchema);
+
+export { addressCreateSchema, addressReadSchema }

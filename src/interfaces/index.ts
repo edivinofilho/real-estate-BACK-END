@@ -12,6 +12,9 @@ import {
   CategoryRead,
   CategoryRepo,
 } from "./category.interface";
+import { RealEstateCreate, RealEstateRead, RealEstateRepo, RealEstateWithAddress } from "./realEstate.interface";
+
+import { AddressCreate, AddressRead, AddressRepo } from "./address.interface";
 
 export {
   UserCreate,
@@ -25,4 +28,11 @@ export {
   CategoryCreate,
   CategoryRead,
   CategoryRepo,
+  RealEstateCreate, 
+  RealEstateRead, 
+  RealEstateWithAddress,
+  RealEstateRepo, 
+  AddressCreate, 
+  AddressRead, 
+  AddressRepo
 };

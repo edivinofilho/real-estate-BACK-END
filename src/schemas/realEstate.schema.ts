@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { scheduleCreateSchema, categoriesCreateSchema } from ".";
+import { scheduleCreateSchema, categoriesCreateSchema, addressCreateSchema } from ".";
 
 const realEstateSchema = z.object ({
   id: z.number().positive(),
@@ -22,4 +22,13 @@ const realEstateCreateSchemas = realEstateSchema.omit({
   categories: true
 });
 
-export {realEstateSchema,  realEstateCreateSchemas};
+const realEstateWithAddressCreateSchema = z.object({
+  value: z.number().default(0),
+  size: z.number().positive(),
+  address: addressCreateSchema,
+  categoryId: z.number().positive() 
+})
+
+const realEstateReadSchema = z.array(realEstateSchema);
+
+export { realEstateSchema,  realEstateCreateSchemas, realEstateReadSchema, realEstateWithAddressCreateSchema };
