@@ -5,8 +5,10 @@ import { categoriesCreateSchema } from "../schemas";
 
 const categoriesRouter = Router();
 
-categoriesRouter.post("", middleware.validateBody(categoriesCreateSchema), middleware.verifyToken, middleware.validateAdmin, middleware.validateCategoryName, categoryController.categoryCreate);
+categoriesRouter.post("", middleware.validateBody(categoriesCreateSchema), middleware.verifyToken, middleware.verifyIsAdmin, middleware.validateCategoryName, categoryController.categoryCreate);
 
 categoriesRouter.get("", categoryController.readCategory);
+
+categoriesRouter.get("/:id/realEstate", categoryController.readRealEstateCategory);
 
 export { categoriesRouter };

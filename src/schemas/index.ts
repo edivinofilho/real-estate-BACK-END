@@ -1,4 +1,4 @@
-import { addressCreateSchema, addressReadSchema } from "./address.schema";
+import { addressSchema, addressCreateSchema, addressReadSchema } from "./address.schema";
 import {
   categoriesSchema,
   categoryReadSchema,
@@ -6,11 +6,10 @@ import {
 } from "./category.schema";
 import {
   realEstateSchema,
-  realEstateCreateSchemas,
+  realEstateCreateSchema,
   realEstateReadSchema,
-  realEstateWithAddressCreateSchema,
 } from "./realEstate.schema";
-import { scheduleCreateSchema, scheduleSchema } from "./schedule.schema";
+import { scheduleCreateSchema, scheduleSchema, schedulesSchema } from "./schedule.schema";
 import { sessionSchema } from "./session.schema";
 import {
   userCreateSchema,
@@ -33,9 +32,10 @@ export {
   categoryReadSchema,
   sessionSchema,
   realEstateSchema,
-  realEstateCreateSchemas,
+  realEstateCreateSchema,
   realEstateReadSchema,
-  realEstateWithAddressCreateSchema,
+  addressSchema,
   addressCreateSchema, 
-  addressReadSchema
+  addressReadSchema,
+  schedulesSchema
 };

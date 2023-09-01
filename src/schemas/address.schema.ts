@@ -6,11 +6,11 @@ const addressSchema = z.object({
   zipCode: z.string().max(8),
   number: z.number().positive(),
   city: z.string().max(20),
-  state: z.string().max(20)
+  state: z.string().max(2)
 });
 
 const addressCreateSchema = addressSchema.omit({ id: true });
 
 const addressReadSchema = z.array(addressSchema);
 
-export { addressCreateSchema, addressReadSchema }
+export { addressSchema, addressCreateSchema, addressReadSchema }

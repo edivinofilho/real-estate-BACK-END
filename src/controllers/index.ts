@@ -1,4 +1,5 @@
 import userController from "./user.controller";
-import sessionController from "./session.controller"
+import sessionController from "./session.controller";
+import scheduleController from "./schedule.controller";
 
-export { userController,sessionController };
+export { userController,sessionController, scheduleController };

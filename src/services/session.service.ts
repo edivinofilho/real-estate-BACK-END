@@ -17,7 +17,7 @@ const sessionCreate = async (payload: SessionCreate): Promise<SessionReturn> => 
 
   if(!samePassword) throw new AppError("Invalid credentials", 401);
 
-  const token = sign({ admin: user.admin},
+  const token = sign({ admin: user.admin, id: user.id},
     process.env.SECRET_KEY!,
     { subject: user.id.toString(), expiresIn: process.env.EXPIRES_IN!} )
 

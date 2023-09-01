@@ -7,4 +7,10 @@ const createRealEstate = async (req: Request, res: Response): Promise<Response> 
   return res.status(201).json(newRealEstate);
 };
 
-export default { createRealEstate };
+const readRealEstate = async(req: Request, res: Response): Promise<Response> => {
+  const readAllRealEstate = await realEstateServices.realEstateRead();
+
+  return res.status(200).json(readAllRealEstate);
+};
+
+export default { createRealEstate, readRealEstate };

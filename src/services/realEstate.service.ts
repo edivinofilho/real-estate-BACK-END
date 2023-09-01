@@ -1,34 +1,50 @@
 import { Address, RealEstate } from "../entities";
 import { AppError } from "../errors";
-import { AddressCreate, AddressRead, CategoryCreate, CategoryRead, RealEstateRead, RealEstateWithAddress } from "../interfaces";
+import { AddressCreate, AddressRead, CategoryCreate, CategoryRead, RealEstateCreate, RealEstateRead } from "../interfaces";
 import { addressRepo, categoryRepo, realEstateRepo } from "../repositories";
 
-const realEstateCreate = async (payload: RealEstateWithAddress): Promise<void> => {
-  const address = payload.address;
+const realEstateCreate = async (payload: RealEstateCreate) => {
+  const { categoryId, address, ...body} = payload;
+  /* 
+  1. Chamar o repositório de address
+  2. Criar um address
+  3. verificar se este address já existe
+  4. Procurar se esta categoria existe
+  5. Adicionar o address e a category no RelEstate
+  */
 
-  console.log(payload)
+  //Category já criada anteriormente
+  // Sold: Default false
 
-  // const { street, number } = address;
-  // const findAddress: Address | null = await addressRepo.findOne({
-  //   where: {street: street, number: number}
-  // })
-  // if(address === findAddress) throw new AppError("Address already exists", 409);
+  //Para verificar se o address já existe use um findOne passando o address
+ 
+  const foundCategory = await categoryRepo.findOne({ 
+    where: 
+    { id: categoryId }
+  });
+  if(!foundCategory) throw new AppError("Category not found", 404);
 
-  // const category = await categoryRepo.findOneBy({ id: payload.categoryId });
-  
-  // const newAddress: Address = addressRepo.create(address);
+  const foundAddress = await addressRepo.findOne({where: address });
+  if(foundAddress) throw new AppError("Address already exists", 409);
+  const newAddress = await addressRepo.save(address);
 
-  // await addressRepo.save(newAddress);
+    const newRealEstate: RealEstate = realEstateRepo.create({
+    ...body,
+    address: newAddress,
+    category: foundCategory
+  });
 
-  // const newRealEstate: RealEstate = realEstateRepo.create({
-  //   ...payload,
-  //   category: category!,
-  //   address: newAddress
-  // });
+  await realEstateRepo.save(newRealEstate);
 
-  // await realEstateRepo.save(newRealEstate);
-
-  // return newRealEstate;
+  return newRealEstate;
 };
 
-export default { realEstateCreate };
+const realEstateRead = async (): Promise<Array<RealEstate>> => {
+  const realEstateArray: Array<RealEstate> = await realEstateRepo.find({
+    relations: { address: true }
+  }); 
+  
+  return realEstateArray; 
+}
+
+export default { realEstateCreate, realEstateRead };

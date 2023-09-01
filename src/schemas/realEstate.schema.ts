@@ -1,34 +1,25 @@
 import { z } from "zod";
-import { scheduleCreateSchema, categoriesCreateSchema, addressCreateSchema } from ".";
+import { addressCreateSchema, addressSchema, categoriesCreateSchema, categoriesSchema } from ".";
 
 const realEstateSchema = z.object ({
   id: z.number().positive(),
   sold: z.boolean().default(false),
-  value: z.number().default(0),
-  size: z.number(),
+  value: z.string().or(z.number().positive()).default(0), 
+  // JS retorna string - (Números decimais JS interpreta como string pois saem do padrão 10.22 por exemplo)
+  size: z.number().int().positive(),
   createdAt: z.string(),
   updatedAt: z.string(),
-  addressId: z.string(),
-  schedule: scheduleCreateSchema,
-  categories: categoriesCreateSchema
+  address: addressSchema,
+  category: categoriesSchema
 });
 
-const realEstateCreateSchemas = realEstateSchema.omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-  addressId: true,
-  schedule: true,
-  categories: true
-});
-
-const realEstateWithAddressCreateSchema = z.object({
-  value: z.number().default(0),
+const realEstateCreateSchema = z.object({
+  value: z.string().or(z.number().positive()).default(0),
   size: z.number().positive(),
   address: addressCreateSchema,
   categoryId: z.number().positive() 
-})
+});
 
 const realEstateReadSchema = z.array(realEstateSchema);
 
-export { realEstateSchema,  realEstateCreateSchemas, realEstateReadSchema, realEstateWithAddressCreateSchema };
+export { realEstateSchema,  realEstateCreateSchema, realEstateReadSchema };

@@ -1,16 +1,20 @@
 import { z } from "zod";
-import { userReturnSchema } from "./index";
+import { realEstateSchema, userReturnSchema } from "./index";
 
 const scheduleSchema = z.object ({
   id: z.number().positive(),
   date: z.string(),
   hour: z.string(),
+  realEstate: realEstateSchema,
   user: userReturnSchema,
 });
 
-const scheduleCreateSchema = scheduleSchema.omit({
-  id: true,
-  user: true
+const scheduleCreateSchema = z.object({
+  date: z.string(),
+  hour: z.string(),
+  realEstateId: z.number().positive()
 });
 
-export {scheduleSchema, scheduleCreateSchema};
+const schedulesSchema = z.array(scheduleSchema);
+
+export {scheduleSchema, scheduleCreateSchema, schedulesSchema};
