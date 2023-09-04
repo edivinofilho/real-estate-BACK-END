@@ -1,6 +1,6 @@
 import { RealEstate, Schedule, User } from "../entities";
 import { AppError } from "../errors";
-import { ScheduleCreate, ScheduleList, ScheduleReturn } from "../interfaces/schedule.interface";
+import { ScheduleCreate } from "../interfaces/schedule.interface";
 import { realEstateRepo, scheduleRepo, userRepo } from "../repositories";
 
 const scheduleCreate = async (
@@ -9,13 +9,25 @@ const scheduleCreate = async (
 ): Promise<Schedule> => {
   const { realEstateId, date, hour } = payload;
   const user: User | null = await userRepo.findOneBy({ id: userId });
+  if (!user) throw new AppError("user not found", 404);
 
   const foundRealEstate = await realEstateRepo.findOne({
     where: { id: realEstateId },
   });
   if (!foundRealEstate) throw new AppError("RealEstate not found", 404);
 
-  // //VERIFICAÇÕES --> Deveriam estar todos em middlewares?
+  const userSameRealEstateSchedule = await scheduleRepo
+    .createQueryBuilder("schedule")
+    .where("schedule.date = :date", { date: date })
+    .andWhere("schedule.hour = :hour", { hour: hour })
+    .andWhere("schedule.userId = :userId", { userId: userId })
+    .getOne();
+
+  if (userSameRealEstateSchedule)
+    throw new AppError(
+      "User schedule to this real estate at this date and time already exists",
+      409
+    );
 
   const scheduledHour: number = Number(hour.substring(0, 2));
   if (scheduledHour < 8 || scheduledHour > 18)
@@ -38,33 +50,33 @@ const scheduleCreate = async (
     );
 
   const schedule: Schedule = scheduleRepo.create({
-    ...payload,
+    date,
+    hour,
     user: user!,
     realEstate: foundRealEstate,
-    
-    // Se não passar o user ele não associa
   });
   await scheduleRepo.save(schedule);
 
   return schedule;
 };
 
-const readRealEstateScheduleService = async (id: number): Promise<RealEstate> => {
+const readRealEstateScheduleService = async (
+  id: number
+): Promise<RealEstate> => {
   const realEstateSchedule: RealEstate | null = await realEstateRepo.findOne({
-    where:
-    { id: id },
+    where: { id: id },
     relations: {
       schedules: {
-        user: true
+        user: true,
       },
       address: true,
       category: true,
-    }
+    },
   });
-  
-  if(!realEstateSchedule) throw new AppError("RealEstate not found", 404);
+
+  if (!realEstateSchedule) throw new AppError("RealEstate not found", 404);
 
   return realEstateSchedule;
-} 
+};
 
 export default { scheduleCreate, readRealEstateScheduleService };

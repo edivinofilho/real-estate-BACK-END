@@ -9,10 +9,14 @@ scheduleRouter.post(
   "",
   middleware.verifyToken,
   middleware.validateBody(scheduleCreateSchema),
-  middleware.checkUserSchedule,
   scheduleController.scheduleCreate
 );
 
-scheduleRouter.get("/realEstate/:id", middleware.verifyToken, middleware.verifyIsAdmin, scheduleController.realEstateSchedulesController);
+scheduleRouter.get(
+  "/realEstate/:id",
+  middleware.verifyToken,
+  middleware.verifyIsAdmin,
+  scheduleController.realEstateSchedulesController
+);
 
 export { scheduleRouter };

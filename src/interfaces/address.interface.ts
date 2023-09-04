@@ -9,4 +9,4 @@ type AddressRead = z.infer<typeof addressReadSchema>;
 
 type AddressRepo = Repository<Address>;
 
-export { AddressCreate, AddressRead, AddressRepo }
+export { AddressCreate, AddressRead, AddressRepo };

@@ -5,14 +5,23 @@ import {
   UserRepo,
   UserReturn,
 } from "./user.interface";
-import { ScheduleCreate, ScheduleList, ScheduleReturn, ScheduleRepo } from "./schedule.interface";
+import {
+  ScheduleCreate,
+  ScheduleList,
+  ScheduleReturn,
+  ScheduleRepo,
+} from "./schedule.interface";
 import { SessionCreate, SessionReturn } from "./session.interface";
 import {
   CategoryCreate,
   CategoryRead,
   CategoryRepo,
 } from "./category.interface";
-import { RealEstateCreate, RealEstateRead, RealEstateRepo } from "./realEstate.interface";
+import {
+  RealEstateCreate,
+  RealEstateRead,
+  RealEstateRepo,
+} from "./realEstate.interface";
 
 import { AddressCreate, AddressRead, AddressRepo } from "./address.interface";
 
@@ -22,7 +31,7 @@ export {
   UserUpdate,
   UserRepo,
   UserReturn,
-  ScheduleCreate,  
+  ScheduleCreate,
   ScheduleRepo,
   ScheduleReturn,
   ScheduleList,
@@ -31,10 +40,10 @@ export {
   CategoryCreate,
   CategoryRead,
   CategoryRepo,
-  RealEstateCreate, 
-  RealEstateRead, 
-  RealEstateRepo, 
-  AddressCreate, 
-  AddressRead, 
-  AddressRepo
+  RealEstateCreate,
+  RealEstateRead,
+  RealEstateRepo,
+  AddressCreate,
+  AddressRead,
+  AddressRepo,
 };

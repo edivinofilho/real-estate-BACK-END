@@ -1,12 +1,17 @@
-import { Request, RequestHandler, Response, request } from "express";
+import { Request, Response } from "express";
 import { Category } from "../entities";
 import categoryService from "../services/category.service";
 import { CategoryRead } from "../interfaces";
 
-const categoryCreate = async (req: Request, res: Response): Promise<Response> => {
-  const category: Category | null = await categoryService.createCategory(req.body); 
+const categoryCreate = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const category: Category | null = await categoryService.createCategory(
+    req.body
+  );
 
-  return res.status(201).json(category)
+  return res.status(201).json(category);
 };
 
 const readCategory = async (req: Request, res: Response): Promise<Response> => {
@@ -15,9 +20,12 @@ const readCategory = async (req: Request, res: Response): Promise<Response> => {
   return res.status(200).json(categories);
 };
 
-const readRealEstateCategory = async (req: Request, res: Response): Promise<Response> => {
+const readRealEstateCategory = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
   const id: number = Number(req.params.id);
-  const realEstateCategories = await categoryService.readCategoryRealEstate(id);  
+  const realEstateCategories = await categoryService.readCategoryRealEstate(id);
 
   return res.status(200).json(realEstateCategories);
 };

@@ -5,7 +5,10 @@ import { sessionSchema } from "../schemas";
 
 const sessionRouter = Router();
 
-sessionRouter.post("", middleware.validateBody(sessionSchema), sessionController.sessionCreate)
-
+sessionRouter.post(
+  "",
+  middleware.validateBody(sessionSchema),
+  sessionController.sessionCreate
+);
 
 export { sessionRouter };
