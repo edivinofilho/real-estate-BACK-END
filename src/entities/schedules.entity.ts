@@ -2,12 +2,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { User } from "./User.entity";
-import { RealEstate } from ".";
+import { RealEstate } from "./RealEstate.entity";
 
 @Entity("schedules")
 class Schedule {
