@@ -21,13 +21,13 @@ class User {
   password: string;
 
   @CreateDateColumn({type: "date"})
-  createdAt: string;
+  createdAt: Date | string;
 
   @UpdateDateColumn({type: "date"})
-  updatedAt: string;
+  updatedAt: Date | string;
 
   @DeleteDateColumn({type: "date", nullable: true})
-  deletedAt: string | null;
+  deletedAt: Date | string | null;
 
   @OneToMany(() => Schedule, (s) => s.user)
   schedules: Array<Schedule>;
@@ -39,7 +39,6 @@ class User {
     if(!hasRounds){
       this.password = hashSync(this.password, 10); // Listener tem problemas com métodos asincronos
     }
-    // des-hashear
   }
 };
 

@@ -8,7 +8,7 @@ const userSchema = z.object({
   password: z.string().max(120),
   createdAt: z.string().or(z.date()),
   updatedAt: z.string().or(z.date()),
-  deletedAt: z.string().nullish().or(z.date()),
+  deletedAt: z.string().or(z.date().nullish()),
 });
 
 const userCreateSchema = userSchema.omit({

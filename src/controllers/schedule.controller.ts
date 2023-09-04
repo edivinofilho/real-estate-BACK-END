@@ -1,19 +1,23 @@
 import { Request, Response } from "express";
 import { User } from "../entities";
 import scheduleService from "../services/schedule.service";
+import { scheduleRepo } from "../repositories";
 
 const scheduleCreate = async (req: Request, res: Response): Promise<Response> => {
-  const user: User = res.locals.foundUser
-  await scheduleService.scheduleCreate(req.body, user)
+  const userId = res.locals.decoded.sub;
+  const scheduleCreated = await scheduleService.scheduleCreate(req.body, userId)
 
-  return res.status(201).json({message: "Schedule created"})
+  console.log(scheduleCreated)
+  return res.status(201).json(scheduleCreated) //{message: "Schedule created"}
 };
 
-const realEstateSchedules = async (req: Request, res: Response): Promise<Response> => {
+const realEstateSchedulesController = async (req: Request, res: Response): Promise<Response> => {
   const id: number = Number(req.params.id);
-  const realEstateSchedules = await scheduleService.readRealEstateSchedule(id)
+  const realEstateSchedules = await scheduleService.readRealEstateScheduleService(id)
 
+  // const schedules = await scheduleRepo.find()
+  // console.log(schedules)
   return res.status(200).json(realEstateSchedules)
 }
 
-export default { scheduleCreate, realEstateSchedules };
+export default { scheduleCreate, realEstateSchedulesController };
