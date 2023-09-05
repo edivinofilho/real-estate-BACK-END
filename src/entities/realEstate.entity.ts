@@ -9,9 +9,9 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
-import { Schedule } from "./Schedules.entity";
-import { Address } from "./Address.entity";
-import { Category } from "./Category.entity";
+import { Schedule } from "./schedules.entity";
+import { Address } from "./address.entity";
+import { Category } from "./category.entity";
 
 @Entity("realEstates")
 class RealEstate {

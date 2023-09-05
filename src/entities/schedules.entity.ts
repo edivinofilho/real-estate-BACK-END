@@ -5,8 +5,8 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { User } from "./User.entity";
-import { RealEstate } from "./RealEstate.entity";
+import { User } from "./user.entity";
+import { RealEstate } from "./realEstate.entity";
 
 @Entity("schedules")
 class Schedule {

@@ -10,7 +10,7 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 import { getRounds, hashSync } from "bcryptjs";
-import { Schedule } from "./Schedules.entity";
+import { Schedule } from "./schedules.entity";
 
 @Entity("users")
 class User {

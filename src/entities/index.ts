@@ -1,7 +1,7 @@
-import { Schedule } from "./Schedules.entity";
-import { User } from "./User.entity";
-import { Address } from "./Address.entity";
-import { Category } from "./Category.entity";
-import { RealEstate } from "./RealEstate.entity";
+import { Schedule } from "./schedules.entity";
+import { User } from "./user.entity";
+import { Address } from "./address.entity";
+import { Category } from "./category.entity";
+import { RealEstate } from "./realEstate.entity";
 
 export { Address, Category, RealEstate, Schedule, User };
