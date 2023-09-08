@@ -1,3 +1,41 @@
+# Real Estate Management Application
+Welcome to the Real Estate Management Application! This application enables users to register properties and potential buyers interested in property acquisitions. Additionally, it provides functionality for scheduling property visits and checking visit times for properties available in the real estate agency's database.
+
+## Key Features:
+- User Registration: Register new users easily using the POST request to /users. No authentication token is required for this action, and it's open to any user.
+- User Listing: Obtain a list of all users with the GET request to /users. This endpoint is accessible only to administrators.
+- User Updates: Update user information with the PATCH request to /users/:id. Administrators or account owners can make these updates.
+- User Soft Deletion: Perform a soft delete on a user's account using the DELETE request to /users/:id. This action is available only to administrators.
+- Authentication Token: Generate an authentication token for user sessions via the POST request to /login. No token is required for this action, and it's accessible to any user.
+- Category Creation: Create new property categories with the POST request to /categories. Only administrators can perform this action.
+- Category Listing: Retrieve a list of all property categories with the GET request to /categories. No authentication token is required for this action, and it's open to any user.
+- Category Property Listing: Obtain a list of all properties belonging to a specific category with the GET request to /categories/:id/realEstate. No authentication token is required for this action, and it's open to any user.
+- Property Creation: Create new property listings with the POST request to /realEstate. Only administrators can perform this action.
+- Property Listing: Access a list of all available properties with the GET request to /realEstate. No authentication token is required for this action, and it's open to any user.
+- Visit Scheduling: Schedule a visit to a property using the POST request to /schedules. Authentication with a token is mandatory for this action, ensuring security.
+- Visit Listing: Retrieve a list of all scheduled visits for a specific property with the GET request to /schedules/realEstate/:id. This endpoint is accessible only to administrators.
+
+## Technology Stack
+This application is built using a powerful tech stack, including:
+
+- bcryptjs: Ensuring secure password storage and authentication.
+- dotenv: Managing environment variables for configuration.
+- express: A minimal and flexible Node.js web application framework.
+- jsonwebtoken: Generating and managing authentication tokens.
+- pg: The PostgreSQL driver for Node.js, ensuring efficient database operations.
+- typeorm: A TypeScript-based Object-Relational Mapping (ORM) library for simplified database interactions.
+- zod: A TypeScript-first schema validation library for data validation.
+
+## Credits
+This project is part of the Full Stack Developer course at Kenzie Academy Brasil (www.kenzie.com.br). All rights and intellectual property of this project belong to Kenzie Academy Brasil.
+
+I would like to extend my gratitude to the instructors' team at Kenzie for their support and guidance throughout the development of this project.
+
+## Contact
+edivinofilho@hotmail.com
+
+## How to build it
+
 # Projeto Final: KImóveis - TypeORM com Relacionamentos
 
 ## Introdução
